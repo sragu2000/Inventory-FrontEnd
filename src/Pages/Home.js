@@ -1,4 +1,5 @@
 import React from "react";
+import SimpleNav from "../Components/SimpleNav";
 function Home() {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -8,6 +9,7 @@ function Home() {
 
     return (
         <React.Fragment>
+            <SimpleNav></SimpleNav>
             <div className="container mt-3">
                 <div className="card">
                     <div className="card-header bg-dark text-white text-center fw-bold">Purchase</div>
