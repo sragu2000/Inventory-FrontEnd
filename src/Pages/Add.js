@@ -1,6 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import SimpleNav from "../Components/SimpleNav";
 function Add() {
+    const [typeName, setTypeName] = useState("");
+    const [typeDesc, setTypeDesc] = useState("");
+    var addType=(e)=>{
+        e.preventDefault();
+        var toServer = new FormData();
+        toServer.append('typename', typeName);
+        console.log(typeName);
+        console.log(typeDesc);
+        toServer.append('description', typeDesc);
+        fetch("http://127.0.0.1:8000/api/addtype/", {
+            method: 'POST',
+            body: toServer,
+            mode: 'cors',
+            cache: 'no-cache'
+        })
+            .then(response => {
+                if (response.status == 200) {
+                    return response.json();
+                }
+                else {
+                    alert('Backend Error..!');
+                    console.log(response.text());
+                }
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
     return (
         <React.Fragment>
             <SimpleNav></SimpleNav>
@@ -67,10 +98,22 @@ function Add() {
                             <div className="card-header text-white bg-dark text-center fw-bold">
                                 Add Type
                             </div>
-                            <form>
+                            <form onSubmit={addType}>
                                 <div className="card-body">
-                                    <input type="text" className="form-control mt-3" placeholder="Type Name"></input>
-                                    <textarea className="form-control mt-3" placeholder="Description"></textarea>
+                                    <input 
+                                    type="text" 
+                                    className="form-control mt-3" 
+                                    placeholder="Type Name"
+                                    value={typeName}
+                                    onChange={(e) => setTypeName(e.target.value)}>
+                                    </input>
+                                    <textarea 
+                                    className="form-control mt-3" 
+                                    placeholder="Description"
+                                    value={typeDesc}
+                                    onChange={(e) => setTypeDesc(e.target.value)}
+                                    >
+                                    </textarea>
                                 </div>
                                 <div className="card-footer">
                                     <div className="row">
