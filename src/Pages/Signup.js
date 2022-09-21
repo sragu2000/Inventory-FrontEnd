@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import stock from "../Sources/stock.png"
-function Login() {
+function Signup() {
     const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const loginSubmit = (e) => {
         e.preventDefault();
         var toServer = new FormData();
         toServer.append('email', email);
+        toServer.append('name', name);
         toServer.append('password', password);
-        fetch("http://127.0.0.1:8000/api/loginUser/", {
+        fetch("http://127.0.0.1:8000/api/addUser/", {
             method: 'POST',
             body: toServer,
             mode: 'cors',
@@ -25,7 +27,9 @@ function Login() {
                 }
             })
             .then(data => {
-                alert(data.message);
+                if(data.result === true){
+                    alert("Signup Success..Cick login button to login..!");
+                }
             })
             .catch(() => {
                 console.log("Network connection error");
@@ -42,6 +46,13 @@ function Login() {
                         </center>
                         <form onSubmit={loginSubmit}>
                             <input
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                type="text"
+                                className="mt-3 form-control"
+                                placeholder="Name">
+                            </input>
+                            <input
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 type="email"
@@ -55,10 +66,10 @@ function Login() {
                                 className="mt-3 form-control"
                                 placeholder="Password">
                             </input>
-                            <button type="submit" className="btn btn-outline-success mt-3 form-control">Login</button>
+                            <button type="submit" className="btn btn-outline-success mt-3 form-control">Signup</button>
                             <button type="reset" className="btn btn-outline-warning mt-3 form-control">Clear</button>
-                            <Link to="/signup">
-                                <button type="button" className="btn btn-outline-primary mt-3 form-control">Signup</button>
+                            <Link to="/">
+                                <button type="button" className="btn btn-outline-primary mt-3 form-control">Login</button>
                             </Link>
                         </form>
                     </div>
@@ -69,4 +80,4 @@ function Login() {
         </React.Fragment>
     );
 }
-export default Login;
+export default Signup;
