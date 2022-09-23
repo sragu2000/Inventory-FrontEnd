@@ -1,9 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Axios from 'axios';
 import SimpleNav from "../Components/SimpleNav";
 function Add() {
+    const [productTypeLoadAgain, setProductTypeLoadAgain] = useState(1);
+    // add product type
+    const [productTypesApi, setProductTypesApi] = useState([]);
     const [typeName, setTypeName] = useState("");
     const [typeDesc, setTypeDesc] = useState("");
-    var addType=(e)=>{
+    // add products
+    const [productName, setProuctName] = useState("");
+    const [minStockLev, setMinStockLev] = useState("");
+    const [productDescription, setProductDescription] = useState("");
+    const [productType, setProuctType] = useState("");
+
+    useEffect(() => {
+        Axios.get(`http://127.0.0.1:8000/api/getProductTypes`)
+            .then(res => {
+                setProductTypesApi(res.data.productTypes);
+            })
+    }, [productTypeLoadAgain]);
+
+    var addType = (e) => {
         e.preventDefault();
         var toServer = new FormData();
         toServer.append('typename', typeName);
@@ -26,7 +43,52 @@ function Add() {
                 }
             })
             .then(data => {
-                console.log(data);
+                if (data.result === true) {
+                    alert("Product type added successfully!");
+                    setTypeName("");
+                    setTypeDesc("");
+                    let num = productTypeLoadAgain + 1;
+                    setProductTypeLoadAgain(num);
+                } else {
+                    alert("Product type not added!");
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
+    var addProduct = (e) => {
+        e.preventDefault();
+        var toServer = new FormData();
+        toServer.append('productName', productName);
+        toServer.append('minimumStockLevel', minStockLev);
+        toServer.append('type', productType);
+        toServer.append('description', productDescription);
+        fetch("http://127.0.0.1:8000/api/addproduct/", {
+            method: 'POST',
+            body: toServer,
+            mode: 'cors',
+            cache: 'no-cache'
+        })
+            .then(response => {
+                if (response.status == 200) {
+                    return response.json();
+                }
+                else {
+                    alert('Backend Error..!');
+                    console.log(response.text());
+                }
+            })
+            .then(data => {
+                if (data.result === true) {
+                    alert("Product added successfully!");
+                    setProuctName("");
+                    setMinStockLev("");
+                    setProductDescription("");
+                    setProuctType("");
+                } else {
+                    alert("Product type not added!");
+                }
             })
             .catch((e) => {
                 console.log(e);
@@ -67,15 +129,38 @@ function Add() {
                             <div className="card-header text-white bg-dark text-center fw-bold">
                                 Add Product
                             </div>
-                            <form>
+                            <form onSubmit={addProduct}>
                                 <div className="card-body">
-                                    <input type="text" className="form-control mt-3" placeholder="Product Name"></input>
-                                    <select className="form-control mt-3">
-                                        <option selected disabled>Select Type</option>
+                                    <input
+                                        type="text"
+                                        className="form-control mt-3"
+                                        placeholder="Product Name"
+                                        value={productName}
+                                        onChange={(e) => setProuctName(e.target.value)}>
+                                    </input>
+                                    <select className="form-control mt-3"
+                                        onChange={(e) => setProuctType(e.target.value)}
+                                    >
+                                        <option value="" selected disabled>Select a Product</option>
+                                        {
+                                            productTypesApi.map((e) => {
+                                                return <option title={e.description} key={e.id} value={e.id}>{e.typeName}</option>
+                                            })
+                                        }
                                     </select>
-                                    <input type="number" className="form-control mt-3" placeholder="Minimum Stock Level"></input>
-                                    <textarea className="form-control mt-3" placeholder="Description">
-
+                                    <input
+                                        type="number"
+                                        className="form-control mt-3"
+                                        placeholder="Minimum Stock Level"
+                                        value={minStockLev}
+                                        onChange={(e) => setMinStockLev(e.target.value)}
+                                    >
+                                    </input>
+                                    <textarea
+                                        className="form-control mt-3"
+                                        placeholder="Description"
+                                        value={productDescription}
+                                        onChange={(e) => setProductDescription(e.target.value)}>
                                     </textarea>
                                 </div>
                                 <div className="card-footer">
@@ -100,18 +185,18 @@ function Add() {
                             </div>
                             <form onSubmit={addType}>
                                 <div className="card-body">
-                                    <input 
-                                    type="text" 
-                                    className="form-control mt-3" 
-                                    placeholder="Type Name"
-                                    value={typeName}
-                                    onChange={(e) => setTypeName(e.target.value)}>
+                                    <input
+                                        type="text"
+                                        className="form-control mt-3"
+                                        placeholder="Type Name"
+                                        value={typeName}
+                                        onChange={(e) => setTypeName(e.target.value)}>
                                     </input>
-                                    <textarea 
-                                    className="form-control mt-3" 
-                                    placeholder="Description"
-                                    value={typeDesc}
-                                    onChange={(e) => setTypeDesc(e.target.value)}
+                                    <textarea
+                                        className="form-control mt-3"
+                                        placeholder="Description"
+                                        value={typeDesc}
+                                        onChange={(e) => setTypeDesc(e.target.value)}
                                     >
                                     </textarea>
                                 </div>
