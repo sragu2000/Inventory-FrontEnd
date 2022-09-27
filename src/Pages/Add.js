@@ -96,121 +96,139 @@ function Add() {
     }
     return (
         <React.Fragment>
-            <SimpleNav></SimpleNav>
+            {/* <SimpleNav></SimpleNav> */}
             <div className="container mt-3">
-                <div className="row">
-                    <div className="col-md-6">
-                        <div className="card">
-                            <div className="card-header text-white bg-dark text-center fw-bold">
-                                Add Supplier
-                            </div>
-                            <form>
-                                <div className="card-body">
-                                    <input type="text" className="form-control mt-3" placeholder="Supplier Name"></input>
-                                    <input type="email" className="form-control mt-3" placeholder="Supplier Email"></input>
-                                    <input type="text" className="form-control mt-3" placeholder="Supplier Address"></input>
-                                    <input type="number" className="form-control mt-3" placeholder="Supplier Phone Number"></input>
-                                </div>
-                                <div className="card-footer">
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <button type="submit" className="btn btn-success form-control">Add Supplier</button>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <button type="reset" className="btn btn-warning form-control">Clear</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+
+                <div className="m-4 shadow">
+                    <div className="card text-center">
+                        <div className="card-header">
+                            <ul className="nav nav-tabs card-header-tabs" id="myTab">
+                                <li className="nav-item">
+                                    <a href="#home" className="nav-link active" data-bs-toggle="tab">Add Supplier</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a href="#profile" className="nav-link" data-bs-toggle="tab">Add Type</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a href="#messages" className="nav-link" data-bs-toggle="tab">Add Product</a>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="card">
-                            <div className="card-header text-white bg-dark text-center fw-bold">
-                                Add Product
-                            </div>
-                            <form onSubmit={addProduct}>
-                                <div className="card-body">
-                                    <input
-                                        type="text"
-                                        className="form-control mt-3"
-                                        placeholder="Product Name"
-                                        value={productName}
-                                        onChange={(e) => setProuctName(e.target.value)}>
-                                    </input>
-                                    <select className="form-control mt-3"
-                                        onChange={(e) => setProuctType(e.target.value)}
-                                    >
-                                        <option value="" selected disabled>Select a Product</option>
-                                        {
-                                            productTypesApi.map((e) => {
-                                                return <option title={e.description} key={e.id} value={e.id}>{e.typeName}</option>
-                                            })
-                                        }
-                                    </select>
-                                    <input
-                                        type="number"
-                                        className="form-control mt-3"
-                                        placeholder="Minimum Stock Level"
-                                        value={minStockLev}
-                                        onChange={(e) => setMinStockLev(e.target.value)}
-                                    >
-                                    </input>
-                                    <textarea
-                                        className="form-control mt-3"
-                                        placeholder="Description"
-                                        value={productDescription}
-                                        onChange={(e) => setProductDescription(e.target.value)}>
-                                    </textarea>
-                                </div>
-                                <div className="card-footer">
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <button type="submit" className="btn btn-success form-control">Add Product</button>
+                        <div className="card-body">
+                            <div className="tab-content">
+                                <div className="tab-pane fade show active" id="home">
+                                    <div className="card">
+                                        <div className="card-header text-white bg-dark text-center fw-bold">
+                                            Add Supplier
                                         </div>
-                                        <div className="col-md-6">
-                                            <button type="reset" className="btn btn-warning form-control">Clear</button>
-                                        </div>
+                                        <form>
+                                            <div className="card-body">
+                                                <input type="text" className="form-control mt-3" placeholder="Supplier Name"></input>
+                                                <input type="email" className="form-control mt-3" placeholder="Supplier Email"></input>
+                                                <input type="text" className="form-control mt-3" placeholder="Supplier Address"></input>
+                                                <input type="number" className="form-control mt-3" placeholder="Supplier Phone Number"></input>
+                                            </div>
+                                            <div className="card-footer">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <button type="submit" className="btn btn-success form-control">Add Supplier</button>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <button type="reset" className="btn btn-warning form-control">Clear</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div className="row mt-3">
-                    <div className="col-md-6">
-                        <div className="card">
-                            <div className="card-header text-white bg-dark text-center fw-bold">
-                                Add Type
-                            </div>
-                            <form onSubmit={addType}>
-                                <div className="card-body">
-                                    <input
-                                        type="text"
-                                        className="form-control mt-3"
-                                        placeholder="Type Name"
-                                        value={typeName}
-                                        onChange={(e) => setTypeName(e.target.value)}>
-                                    </input>
-                                    <textarea
-                                        className="form-control mt-3"
-                                        placeholder="Description"
-                                        value={typeDesc}
-                                        onChange={(e) => setTypeDesc(e.target.value)}
-                                    >
-                                    </textarea>
-                                </div>
-                                <div className="card-footer">
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <button type="submit" className="btn btn-success form-control">Add Type</button>
+                                <div className="tab-pane fade" id="profile">
+                                    <div className="card">
+                                        <div className="card-header text-white bg-dark text-center fw-bold">
+                                            Add Type
                                         </div>
-                                        <div className="col-md-6">
-                                            <button type="reset" className="btn btn-warning form-control">Clear</button>
-                                        </div>
+                                        <form onSubmit={addType}>
+                                            <div className="card-body">
+                                                <input
+                                                    type="text"
+                                                    className="form-control mt-3"
+                                                    placeholder="Type Name"
+                                                    value={typeName}
+                                                    onChange={(e) => setTypeName(e.target.value)}>
+                                                </input>
+                                                <textarea
+                                                    className="form-control mt-3"
+                                                    placeholder="Description"
+                                                    value={typeDesc}
+                                                    onChange={(e) => setTypeDesc(e.target.value)}
+                                                >
+                                                </textarea>
+                                            </div>
+                                            <div className="card-footer">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <button type="submit" className="btn btn-success form-control">Add Type</button>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <button type="reset" className="btn btn-warning form-control">Clear</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                            </form>
+                                <div className="tab-pane fade" id="messages">
+                                    <div className="card">
+                                        <div className="card-header text-white bg-dark text-center fw-bold">
+                                            Add Product
+                                        </div>
+                                        <form onSubmit={addProduct}>
+                                            <div className="card-body">
+                                                <input
+                                                    type="text"
+                                                    className="form-control mt-3"
+                                                    placeholder="Product Name"
+                                                    value={productName}
+                                                    onChange={(e) => setProuctName(e.target.value)}>
+                                                </input>
+                                                <select className="form-control mt-3"
+                                                    onChange={(e) => setProuctType(e.target.value)}
+                                                >
+                                                    <option value="" selected disabled>Select a Product</option>
+                                                    {
+                                                        productTypesApi.map((e) => {
+                                                            return <option title={e.description} key={e.id} value={e.id}>{e.typeName}</option>
+                                                        })
+                                                    }
+                                                </select>
+                                                <input
+                                                    type="number"
+                                                    className="form-control mt-3"
+                                                    placeholder="Minimum Stock Level"
+                                                    value={minStockLev}
+                                                    onChange={(e) => setMinStockLev(e.target.value)}
+                                                >
+                                                </input>
+                                                <textarea
+                                                    className="form-control mt-3"
+                                                    placeholder="Description"
+                                                    value={productDescription}
+                                                    onChange={(e) => setProductDescription(e.target.value)}>
+                                                </textarea>
+                                            </div>
+                                            <div className="card-footer">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <button type="submit" className="btn btn-success form-control">Add Product</button>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <button type="reset" className="btn btn-warning form-control">Clear</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
