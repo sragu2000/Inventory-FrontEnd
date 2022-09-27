@@ -12,7 +12,11 @@ function Add() {
     const [minStockLev, setMinStockLev] = useState("");
     const [productDescription, setProductDescription] = useState("");
     const [productType, setProuctType] = useState("");
-
+    // add supplier
+    const [supplierName, setSupplierName] = useState("");
+    const [supplierAddress, setSupplierAddress] = useState("");
+    const [supplierEmail, setSupplierEmail] = useState("");
+    const [supplierPhone, setSupplierPhone] = useState("");
     useEffect(() => {
         Axios.get(`http://127.0.0.1:8000/api/getProductTypes`)
             .then(res => {
@@ -57,6 +61,7 @@ function Add() {
                 console.log(e);
             });
     }
+
     var addProduct = (e) => {
         e.preventDefault();
         var toServer = new FormData();
@@ -94,6 +99,45 @@ function Add() {
                 console.log(e);
             });
     }
+
+    var addSupplier = (e) => {
+        e.preventDefault();
+        var toServer = new FormData();
+        toServer.append('name', supplierName);
+        toServer.append('email', supplierEmail);
+        toServer.append('address', supplierAddress);
+        toServer.append('phone', supplierPhone);
+        fetch("http://127.0.0.1:8000/api/addsupplier/", {
+            method: 'POST',
+            body: toServer,
+            mode: 'cors',
+            cache: 'no-cache'
+        })
+            .then(response => {
+                if (response.status == 200) {
+                    return response.json();
+                }
+                else {
+                    alert('Backend Error..!');
+                    console.log(response.text());
+                }
+            })
+            .then(data => {
+                if (data.result === true) {
+                    alert("Supplier added successfully!");
+                    setProuctName("");
+                    setMinStockLev("");
+                    setProductDescription("");
+                    setProuctType("");
+                } else {
+                    alert("Supplier not added!");
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
+
     return (
         <React.Fragment>
             {/* <SimpleNav></SimpleNav> */}
@@ -121,12 +165,36 @@ function Add() {
                                         <div className="card-header text-white bg-dark text-center fw-bold">
                                             Add Supplier
                                         </div>
-                                        <form>
+                                        <form onSubmit={addSupplier}>
                                             <div className="card-body">
-                                                <input type="text" className="form-control mt-3" placeholder="Supplier Name"></input>
-                                                <input type="email" className="form-control mt-3" placeholder="Supplier Email"></input>
-                                                <input type="text" className="form-control mt-3" placeholder="Supplier Address"></input>
-                                                <input type="number" className="form-control mt-3" placeholder="Supplier Phone Number"></input>
+                                                <input 
+                                                    type="text" 
+                                                    className="form-control mt-3" 
+                                                    placeholder="Supplier Name"
+                                                    value={supplierName}
+                                                    onChange={(e) => setSupplierName(e.target.value)}>
+                                                </input>
+                                                <input 
+                                                    type="email"
+                                                    className="form-control mt-3" 
+                                                    placeholder="Supplier Email"
+                                                    value={supplierEmail}
+                                                    onChange={(e) => setSupplierEmail(e.target.value)}>
+                                                </input>
+                                                <input 
+                                                    type="text" 
+                                                    className="form-control mt-3" 
+                                                    placeholder="Supplier Address"
+                                                    value={supplierAddress}
+                                                    onChange={(e) => setSupplierAddress(e.target.value)}>
+                                                </input>
+                                                <input 
+                                                    type="number" 
+                                                    className="form-control mt-3" 
+                                                    placeholder="Supplier Phone Number"
+                                                    value={supplierPhone}
+                                                    onChange={(e) => setSupplierPhone(e.target.value)}>
+                                                </input>
                                             </div>
                                             <div className="card-footer">
                                                 <div className="row">
