@@ -28,8 +28,6 @@ function Add() {
         e.preventDefault();
         var toServer = new FormData();
         toServer.append('typename', typeName);
-        console.log(typeName);
-        console.log(typeDesc);
         toServer.append('description', typeDesc);
         fetch("http://127.0.0.1:8000/api/addtype/", {
             method: 'POST',
@@ -141,6 +139,7 @@ function Add() {
     return (
         <React.Fragment>
             {/* <SimpleNav></SimpleNav> */}
+
             <div className="container mt-3">
 
                 <div className="m-4 shadow">
@@ -261,7 +260,7 @@ function Add() {
                                                 <select className="form-control mt-3"
                                                     onChange={(e) => setProuctType(e.target.value)}
                                                 >
-                                                    <option value="" selected disabled>Select a Product</option>
+                                                    <option value="" selected disabled>Select a Product Type</option>
                                                     {
                                                         productTypesApi.map((e) => {
                                                             return <option title={e.description} key={e.id} value={e.id}>{e.typeName}</option>
