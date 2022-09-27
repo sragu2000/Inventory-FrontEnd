@@ -125,10 +125,10 @@ function Add() {
             .then(data => {
                 if (data.result === true) {
                     alert("Supplier added successfully!");
-                    setProuctName("");
-                    setMinStockLev("");
-                    setProductDescription("");
-                    setProuctType("");
+                    setSupplierName("");
+                    setSupplierAddress("");
+                    setSupplierEmail("");
+                    setSupplierPhone("");
                 } else {
                     alert("Supplier not added!");
                 }
