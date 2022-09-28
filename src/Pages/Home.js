@@ -20,6 +20,11 @@ function Home() {
     const [productsApi, setProductsApi] = useState([]);
     const [supplierApi, setSupplierApi] = useState([]);
 
+    const [issueProductId, setIssueProductId] = useState("");
+    const [issueProductQuantity, setIssueProductQuantity] = useState("");
+
+    const [availableQuantity, setAvailableQuantity] = useState("Loading...");
+
     useEffect(() => {
         Axios.get(`http://127.0.0.1:8000/api/getProductTypes`)
             .then(res => { setProductTypesApi(res.data.productTypes); });
@@ -28,6 +33,12 @@ function Home() {
         Axios.get(`http://127.0.0.1:8000/api/getSuppliers`)
             .then(res => { setSupplierApi(res.data.suppliers); });
     }, []);
+
+    useEffect(() => {
+        Axios.get(`http://127.0.0.1:8000/api/getAvailableStock?productid=${issueProductId}`)
+            .then(res => { setAvailableQuantity(res.data.quantity); });
+    }, [issueProductId]);
+
     var addPurchase = (e) => {
         e.preventDefault();
         var toServer = new FormData();
@@ -190,11 +201,41 @@ function Home() {
                                         <div className="card-body">
                                             <div className="row">
                                                 <div className="col-md-8">
-                                                    <input type="text" className="form-control" placeholder="Product Name"></input>
+                                                    <select className="form-control"
+                                                        onChange={(e) => setIssueProductId(e.target.value)}
+                                                    >
+                                                        <option value="" selected disabled>Select a Product</option>
+                                                        {
+                                                            productsApi.map((e) => {
+                                                                return <option title={e.description} key={e.id} value={e.id}>{e.prdName}</option>
+                                                            })
+                                                        }
+                                                    </select>
                                                 </div>
                                                 <div className="col-md-4">
                                                     <input type="number" className="form-control" placeholder="QTY"></input>
                                                 </div>
+                                            </div>
+                                            <div className="row mt-3">
+                                                <div className="col-md-6">
+                                                    <div className="alert alert-sm alert-info">
+                                                        Available Quantity
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    {(availableQuantity == 0) ?
+                                                        <div className="alert alert-sm alert-danger">
+                                                            {availableQuantity}
+                                                        </div>
+                                                        :
+                                                        <div className="alert alert-sm alert-success">
+                                                            {availableQuantity}
+                                                        </div>
+                                                }
+
+
+                                                </div>
+
                                             </div>
                                             <textarea className="form-control mt-3" placeholder="Description"></textarea>
                                         </div>
