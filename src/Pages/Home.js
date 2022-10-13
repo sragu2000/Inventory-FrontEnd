@@ -21,7 +21,9 @@ function Home() {
     const [supplierApi, setSupplierApi] = useState([]);
 
     const [issueProductId, setIssueProductId] = useState("");
+    const [issueTypeId, setIssueTypeId] = useState("");
     const [issueProductQuantity, setIssueProductQuantity] = useState("");
+    const [issueDescription, setIssueDescription] = useState("");
 
     const [availableQuantity, setAvailableQuantity] = useState("Loading...");
 
@@ -77,9 +79,53 @@ function Home() {
                 console.log(e);
             });
     }
+
+    var addIssue = (e) => {
+        e.preventDefault();
+        var toServer = new FormData();
+        toServer.append('typeId', issueTypeId);
+        toServer.append('productId', issueProductId);
+        toServer.append('quantity', issueProductQuantity);
+        toServer.append('description', issueDescription);
+        fetch("http://127.0.0.1:8000/api/addIssues/", {
+            method: 'POST',
+            body: toServer,
+            mode: 'cors',
+            cache: 'no-cache'
+        })
+            .then(response => {
+                if (response.status == 200) {
+                    return response.json();
+                }
+                else {
+                    alert('Backend Error..!');
+                    console.log(response.text());
+                }
+            })
+            .then(data => {
+                if (data.result === true) {
+                    alert("Issue added successfully!");
+                    setIssueTypeId("");
+                    setIssueProductId("");
+                    setIssueProductQuantity("");
+                    setIssueDescription("");
+                    window.location.reload(false);
+                } else {
+                    if(data.message==="error1"){
+                        alert("You need to purchase something to add..!");
+                    }else{
+                        alert("Issue not added!");
+                    }
+                    
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
     return (
         <React.Fragment>
-            {/* <SimpleNav></SimpleNav> */}
+            <SimpleNav></SimpleNav>
             <div className="container mt-3">
 
                 <div className="m-4 shadow">
@@ -193,62 +239,87 @@ function Home() {
                                         </form>
                                     </div>
                                 </div>
+                                {/* ------------------------------------------------------------- */}
                                 <div className="tab-pane fade" id="profile">
                                     <div className="card">
-                                        <div className="card-header bg-dark text-white fw-bold text-center">
-                                            Issue
-                                        </div>
-                                        <div className="card-body">
-                                            <div className="row">
-                                                <div className="col-md-8">
-                                                    <select className="form-control"
-                                                        onChange={(e) => setIssueProductId(e.target.value)}
-                                                    >
-                                                        <option value="" selected disabled>Select a Product</option>
-                                                        {
-                                                            productsApi.map((e) => {
-                                                                return <option title={e.description} key={e.id} value={e.id}>{e.prdName}</option>
-                                                            })
-                                                        }
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-4">
-                                                    <input type="number" className="form-control" placeholder="QTY"></input>
-                                                </div>
+                                        <form onSubmit={addIssue}>
+                                            <div className="card-header bg-dark text-white fw-bold text-center">
+                                                Issue
                                             </div>
-                                            <div className="row mt-3">
-                                                <div className="col-md-6">
-                                                    <div className="alert alert-sm alert-info">
-                                                        Available Quantity
+                                            <div className="card-body">
+                                                <div className="row">
+                                                    
+                                                    <div className="col-md-12">
+                                                        <select className="form-control"
+                                                            onChange={(e) => setIssueTypeId(e.target.value)}
+                                                        >
+                                                            <option value="" selected disabled>Select a Product Type</option>
+                                                            {
+                                                                productTypesApi.map((e) => {
+                                                                    return <option title={e.description} key={e.id} value={e.id}>{e.typeName}</option>
+                                                                })
+                                                            }
+                                                        </select>
                                                     </div>
                                                 </div>
-                                                <div className="col-md-6">
-                                                    {(availableQuantity == 0) ?
-                                                        <div className="alert alert-sm alert-danger">
-                                                            {availableQuantity}
+                                                <div className="row mt-3">
+                                                    <div className="col-md-8">
+                                                        <select className="form-control"
+                                                            onChange={(e) => setIssueProductId(e.target.value)}
+                                                        >
+                                                            <option value="" selected disabled>Select a Product</option>
+                                                            {
+                                                                productsApi.map((e) => {
+                                                                    return <option title={e.description} key={e.id} value={e.id}>{e.prdName}</option>
+                                                                })
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <input type="number"
+                                                            value={issueProductQuantity}
+                                                            onChange={(e) => setIssueProductQuantity(e.target.value)}
+                                                            className="form-control" placeholder="QTY"></input>
+                                                    </div>
+                                                </div>
+                                                <div className="row mt-3">
+                                                    <div className="col-md-6">
+                                                        <div className="alert alert-sm alert-info">
+                                                            Available Quantity
                                                         </div>
-                                                        :
-                                                        <div className="alert alert-sm alert-success">
-                                                            {availableQuantity}
-                                                        </div>
-                                                }
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        {(availableQuantity == 0) ?
+                                                            <div className="alert alert-sm alert-danger">
+                                                                {availableQuantity}
+                                                            </div>
+                                                            :
+                                                            <div className="alert alert-sm alert-success">
+                                                                {availableQuantity}
+                                                            </div>
+                                                        }
 
+
+                                                    </div>
 
                                                 </div>
-
+                                                <textarea
+                                                    className="form-control mt-3"
+                                                    value={issueDescription}
+                                                    onChange={(e) => setIssueDescription(e.target.value)}
+                                                    placeholder="Description"></textarea>
                                             </div>
-                                            <textarea className="form-control mt-3" placeholder="Description"></textarea>
-                                        </div>
-                                        <div className="card-footer">
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <button type="submit" className="btn btn-success form-control">Issue</button>
-                                                </div>
-                                                <div className="col-md-6" >
-                                                    <button tyoe="reset" className="btn btn-warning form-control">Clear</button>
+                                            <div className="card-footer">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <button type="submit" className="btn btn-success form-control">Issue</button>
+                                                    </div>
+                                                    <div className="col-md-6" >
+                                                        <button tyoe="reset" className="btn btn-warning form-control">Clear</button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

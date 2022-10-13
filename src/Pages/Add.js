@@ -12,11 +12,19 @@ function Add() {
     const [minStockLev, setMinStockLev] = useState("");
     const [productDescription, setProductDescription] = useState("");
     const [productType, setProuctType] = useState("");
+
     // add supplier
     const [supplierName, setSupplierName] = useState("");
     const [supplierAddress, setSupplierAddress] = useState("");
     const [supplierEmail, setSupplierEmail] = useState("");
     const [supplierPhone, setSupplierPhone] = useState("");
+
+    const [supplierApi, setSupplierApi] = useState([]);
+    useEffect(() => {
+        Axios.get(`http://127.0.0.1:8000/api/getSuppliers`)
+            .then(res => { setSupplierApi(res.data.suppliers); });
+    }, []);
+    
     useEffect(() => {
         Axios.get(`http://127.0.0.1:8000/api/getProductTypes`)
             .then(res => {
@@ -138,7 +146,7 @@ function Add() {
 
     return (
         <React.Fragment>
-            {/* <SimpleNav></SimpleNav> */}
+            <SimpleNav></SimpleNav>
 
             <div className="container mt-3">
 
@@ -267,6 +275,7 @@ function Add() {
                                                         })
                                                     }
                                                 </select>
+
                                                 <input
                                                     type="number"
                                                     className="form-control mt-3"
