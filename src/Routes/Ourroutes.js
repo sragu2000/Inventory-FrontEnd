@@ -5,6 +5,8 @@ import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
 import ShowStocks from "../Pages/ShowStocks";
+import Suppliers from "../Pages/Suppliers";
+import Transactions from "../Pages/Transactions";
 const Ourroutes = () => {
   return (
     <React.Fragment>
@@ -15,6 +17,8 @@ const Ourroutes = () => {
           <Route exact path="/add" element={<Add />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/showstocks" element={<ShowStocks />} />
+          <Route exact path="/showSuppliers/:id" element={<Suppliers />} />
+          <Route exact path="/showTransactions/:id" element={<Transactions />} />
         </Routes>
       </BrowserRouter>
 

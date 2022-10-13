@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SimpleNav from "../Components/SimpleNav";
 import Axios from 'axios';
+import { Link } from "react-router-dom";
 import { type } from "@testing-library/user-event/dist/type";
 function ShowStocks() {
     const [availableProducts, setAvailableProduct] = useState([]);
@@ -19,7 +20,8 @@ function ShowStocks() {
                             <th>Type</th>
                             <th>Available Stock</th>
                             <th>At Price</th>
-                            <th>Show Suppliers</th>
+                            <th>Suppliers</th>
+                            <th>Transaction</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,7 +36,16 @@ function ShowStocks() {
                                             <td>{e.availableStock}</td>
                                             <td>{(e.availableStock!==0)?Number(e.price/e.availableStock).toFixed(2):0}</td>
                                             <td>
-                                                <a href={"http://127.0.0.1:8000/api/getSupplierForProduct?prdid="+e.productId} className="btn btn-light form-control">Show Suppliers</a>
+                                                <Link to={"/showSuppliers/"+e.productId}>
+                                                    <button className="btn btn-light form-control">Show</button>
+                                                </Link>
+                                                {/* <a href={"http://127.0.0.1:8000/api/getSupplierForProduct?prdid="+e.productId} className="btn btn-light form-control">Show Suppliers</a> */}
+                                            </td>
+                                            <td>
+                                                <Link to={"/showTransactions/"+e.productId}>
+                                                    <button className="btn btn-light form-control">Show</button>
+                                                </Link>
+                                                {/* <a href={"http://127.0.0.1:8000/api/getSupplierForProduct?prdid="+e.productId} className="btn btn-light form-control">Show Suppliers</a> */}
                                             </td>
                                         </tr>
                                     </React.Fragment>
