@@ -6,26 +6,46 @@ function Transactions() {
     const { id } = useParams();
     const [transactions, setTransactions] = useState([]);
     const [product, setProduct] = useState("");
+    const [availableProducts, setAvailableProduct] = useState([]);
     useEffect(() => {
         Axios.get(`http://127.0.0.1:8000/api/getTransactions?prdid=${id}`)
-            .then(res => { 
-                setTransactions(res.data.transactions); 
+            .then(res => {
+                setTransactions(res.data.transactions);
                 setProduct(res.data.product);
             });
+
+
+        Axios.get(`http://127.0.0.1:8000/api/getAvailableProducts?prdid=${id}`)
+            .then(res => { setAvailableProduct(res.data.Products); });
+
     }, []);
+
     return (
         <React.Fragment>
             <SimpleNav></SimpleNav>
             <div className="container">
                 <table className="table text-center table-bordered table-hover mt-3">
                     <thead>
-                        <tr className="table-light">
-                            <th colSpan={6}>Transactions of Product : {product}</th>
-                        </tr>
-                        <tr className="table-light">
-                            <th colSpan={6}>In WAC Method</th>
-                        </tr>
+                        {availableProducts.map((e) => {
+                            return (
+                                <React.Fragment>
+                                    <tr className="table-light" style={{"textAlign":"left"}}>
+                                        <th colSpan={7}>
+                                            <h6>Product : {e.productName}</h6>
+                                            <h6>Type : {e.type}</h6>
+                                            <h6>Available Stock : {e.availableStock}</h6>
+                                            <h6>At Price : {(e.availableStock!==0)?Number(e.price/e.availableStock).toFixed(2):0}</h6>
+                                            <h6>Method :&nbsp;
+                                                <a href="https://www.unleashedsoftware.com/blog/weighted-average-cost-method-inventory-valuation#:~:text=In%20the%20weighted%20average%20cost,specific%20costs%20to%20single%20units.">Weighted Average Cost (WAC)</a>
+                                            </h6>
+                                        </th>
+                                    </tr>
+                                </React.Fragment>
+                            )
+                        })}
+
                         <tr className="table-primary">
+                            <th rowSpan={2} className="table-dark">Date</th>
                             <th colSpan={3}>Purchase</th>
                             <th colSpan={3}>Issues</th>
                         </tr>
@@ -46,6 +66,7 @@ function Transactions() {
                                         ?
                                         <React.Fragment>
                                             <tr className={"align-middle table-success"}>
+                                                <td>{e.date}</td>
                                                 <td>{e.quantity}</td>
                                                 <td>{e.price}</td>
                                                 <td>{e.quantity * e.price}</td>
@@ -58,6 +79,7 @@ function Transactions() {
                                         :
                                         <React.Fragment>
                                             <tr className={"align-middle table-warning"}>
+                                                <td>{e.date}</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>

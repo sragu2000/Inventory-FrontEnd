@@ -6,7 +6,7 @@ function Home() {
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
-    today = mm + '/' + dd + '/' + yyyy;
+    today = yyyy+"-"+mm+"-"+dd;
     const [invoicenumber, setInvoiceNumber] = useState("");
     const [supplierid, setSupplierId] = useState("");
     const [typeid, setTypeId] = useState("");
@@ -87,6 +87,7 @@ function Home() {
         toServer.append('productId', issueProductId);
         toServer.append('quantity', issueProductQuantity);
         toServer.append('description', issueDescription);
+        toServer.append('date', today);
         fetch("http://127.0.0.1:8000/api/addIssues/", {
             method: 'POST',
             body: toServer,

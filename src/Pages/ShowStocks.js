@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import SimpleNav from "../Components/SimpleNav";
 import Axios from 'axios';
 import { Link } from "react-router-dom";
-import { type } from "@testing-library/user-event/dist/type";
 function ShowStocks() {
     const [availableProducts, setAvailableProduct] = useState([]);
     useEffect(() => {
@@ -52,7 +51,6 @@ function ShowStocks() {
                                 )
                             })
                         }
-
                     </tbody>
                 </table>
             </div>
