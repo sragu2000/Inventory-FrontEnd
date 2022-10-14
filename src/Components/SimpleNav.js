@@ -19,19 +19,19 @@ function SimpleNav() {
                                 <a className="nav-link" href="/add">Add</a>
                             </li>
                             <li className="nav-item fw-bold">
-                                <a className="nav-link" href="/showstocks">Show Stocks</a>
+                                <a className="nav-link" href="/showstocks">Stocks</a>
                             </li>
-                            {/* <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown
+                            <li className="nav-item dropdown fw-bold">
+                                <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Show
                                 </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="#">Action</a></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                                    <li><hr className="dropdown-divider"></hr></li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                <ul className="dropdown-menu fw-bold" aria-labelledby="navbarDropdown">
+                                    <li><a className="dropdown-item" href="#">Suppliers</a></li>
+                                    <li><a className="dropdown-item" href="#">Types</a></li>
+                                    {/* <li><hr className="dropdown-divider"></hr></li> */}
+                                    <li><a className="dropdown-item" href="#">Products</a></li>
                                 </ul>
-                            </li> */}
+                            </li>
                             {/* <li className="nav-item">
                                 <a className="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                             </li> */}

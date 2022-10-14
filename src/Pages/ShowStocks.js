@@ -12,7 +12,7 @@ function ShowStocks() {
         <React.Fragment>
             <SimpleNav></SimpleNav>
             <div className="container">
-                <table className="table table-hover mt-3">
+                <table className="table table-hover mt-3 table-bordered text-center">
                     <thead>
                         <tr className="table-dark text-white">
                             <th>Product Name</th>
@@ -20,7 +20,7 @@ function ShowStocks() {
                             <th>Available Stock</th>
                             <th>At Price</th>
                             <th>Suppliers</th>
-                            <th>Transaction</th>
+                            <th colSpan={2}>Transaction</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +46,13 @@ function ShowStocks() {
                                                 </Link>
                                                 {/* <a href={"http://127.0.0.1:8000/api/getSupplierForProduct?prdid="+e.productId} className="btn btn-light form-control">Show Suppliers</a> */}
                                             </td>
+                                            <td>
+                                                <Link to={"/modifyTransactions/"+e.productId}>
+                                                    <button className="btn btn-light form-control">Modify</button>
+                                                </Link>
+                                                {/* <a href={"http://127.0.0.1:8000/api/getSupplierForProduct?prdid="+e.productId} className="btn btn-light form-control">Show Suppliers</a> */}
+                                            </td>
+
                                         </tr>
                                     </React.Fragment>
                                 )

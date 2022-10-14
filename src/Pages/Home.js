@@ -6,7 +6,7 @@ function Home() {
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
-    today = yyyy+"-"+mm+"-"+dd;
+    today = yyyy + "-" + mm + "-" + dd;
     const [invoicenumber, setInvoiceNumber] = useState("");
     const [supplierid, setSupplierId] = useState("");
     const [typeid, setTypeId] = useState("");
@@ -50,7 +50,7 @@ function Home() {
         toServer.append('productid', productid);
         toServer.append('quantity', quantity);
         toServer.append('purchaseprice', purchaseprice);
-        toServer.append('date', date);
+        toServer.append('date', today);
         fetch("http://127.0.0.1:8000/api/addpurchase/", {
             method: 'POST',
             body: toServer,
@@ -106,18 +106,17 @@ function Home() {
             .then(data => {
                 if (data.result === true) {
                     alert("Issue added successfully!");
-                    setIssueTypeId("");
-                    setIssueProductId("");
+                    // setIssueTypeId("");
+                    // setIssueProductId("");
                     setIssueProductQuantity("");
                     setIssueDescription("");
-                    window.location.reload(false);
                 } else {
-                    if(data.message==="error1"){
+                    if (data.message === "error1") {
                         alert("You need to purchase something to add..!");
-                    }else{
+                    } else {
                         alert("Issue not added!");
                     }
-                    
+
                 }
             })
             .catch((e) => {
@@ -172,7 +171,7 @@ function Home() {
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <input
+                                                {/* <input
                                                     type="date"
                                                     placeholder="Purchase Date"
                                                     className="mt-3 form-control"
@@ -180,7 +179,7 @@ function Home() {
                                                     value={date}
                                                     onChange={(e) => setDate(e.target.value)}>
 
-                                                </input>
+                                                </input> */}
                                                 <div className="row mt-3">
                                                     <div className="col-md-3">
                                                         <select className="form-control"
@@ -249,7 +248,7 @@ function Home() {
                                             </div>
                                             <div className="card-body">
                                                 <div className="row">
-                                                    
+
                                                     <div className="col-md-12">
                                                         <select className="form-control"
                                                             onChange={(e) => setIssueTypeId(e.target.value)}
@@ -280,7 +279,8 @@ function Home() {
                                                         <input type="number"
                                                             value={issueProductQuantity}
                                                             onChange={(e) => setIssueProductQuantity(e.target.value)}
-                                                            className="form-control" placeholder="QTY"></input>
+                                                            className="form-control" placeholder="QTY">
+                                                        </input>
                                                     </div>
                                                 </div>
                                                 <div className="row mt-3">

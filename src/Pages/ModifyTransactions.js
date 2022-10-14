@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import SimpleNav from "../Components/SimpleNav";
 import Axios from 'axios';
-function Transactions() {
+function ModifyTransactions() {
     const { id } = useParams();
     const [transactions, setTransactions] = useState([]);
     const [product, setProduct] = useState("");
@@ -19,7 +19,6 @@ function Transactions() {
             .then(res => { setAvailableProduct(res.data.Products); });
 
     }, []);
-
     return (
         <React.Fragment>
             <SimpleNav></SimpleNav>
@@ -29,12 +28,12 @@ function Transactions() {
                         {availableProducts.map((e) => {
                             return (
                                 <React.Fragment>
-                                    <tr className="table-light" style={{"textAlign":"left"}}>
-                                        <th colSpan={7}>
+                                    <tr className="table-light" style={{ "textAlign": "left" }}>
+                                        <th colSpan={9}>
                                             <h6>Product : {e.productName}</h6>
                                             <h6>Type : {e.type}</h6>
                                             <h6>Available Stock : {e.availableStock}</h6>
-                                            <h6>At Price : {(e.availableStock!==0)?Number(e.price/e.availableStock).toFixed(2):0}</h6>
+                                            <h6>At Price : {(e.availableStock !== 0) ? Number(e.price / e.availableStock).toFixed(2) : 0}</h6>
                                             <h6>Method :&nbsp;
                                                 <a href="https://www.unleashedsoftware.com/blog/weighted-average-cost-method-inventory-valuation#:~:text=In%20the%20weighted%20average%20cost,specific%20costs%20to%20single%20units.">Weighted Average Cost (WAC)</a>
                                             </h6>
@@ -48,6 +47,8 @@ function Transactions() {
                             <th rowSpan={2} className="table-dark">Date</th>
                             <th colSpan={3}>Purchase</th>
                             <th colSpan={3}>Issues</th>
+                            <th rowSpan={2} className="table-dark">EDIT</th>
+                            <th rowSpan={2} className="table-dark">Delete</th>
                         </tr>
                         <tr className="table-dark text-white">
                             <th>Quantity</th>
@@ -56,6 +57,7 @@ function Transactions() {
                             <th>Quantity</th>
                             <th>Price</th>
                             <th>Amount</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -73,6 +75,12 @@ function Transactions() {
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
+                                                <td>
+                                                    <button className="btn btn-warning form-control">Edit</button>
+                                                </td>
+                                                <td>
+                                                    <button className="btn btn-danger form-control">Delete</button>
+                                                </td>
                                             </tr>
                                         </React.Fragment>
 
@@ -86,6 +94,12 @@ function Transactions() {
                                                 <td>{e.quantity}</td>
                                                 <td>{Number(e.price).toFixed(2)}</td>
                                                 <td>{Number(e.quantity * e.price).toFixed(2)}</td>
+                                                <td>
+                                                    <button className="btn btn-warning form-control">Edit</button>
+                                                </td>
+                                                <td>
+                                                    <button className="btn btn-danger form-control">Delete</button>
+                                                </td>
                                             </tr>
                                         </React.Fragment>
                                 )
@@ -99,4 +113,4 @@ function Transactions() {
         </React.Fragment>
     );
 }
-export default Transactions;
+export default ModifyTransactions;

@@ -7,6 +7,7 @@ import Signup from "../Pages/Signup";
 import ShowStocks from "../Pages/ShowStocks";
 import Suppliers from "../Pages/Suppliers";
 import Transactions from "../Pages/Transactions";
+import ModifyTransactions from "../Pages/ModifyTransactions";
 const Ourroutes = () => {
   return (
     <React.Fragment>
@@ -19,6 +20,7 @@ const Ourroutes = () => {
           <Route exact path="/showstocks" element={<ShowStocks />} />
           <Route exact path="/showSuppliers/:id" element={<Suppliers />} />
           <Route exact path="/showTransactions/:id" element={<Transactions />} />
+          <Route exact path="/modifyTransactions/:id" element={<ModifyTransactions />} />
         </Routes>
       </BrowserRouter>
 
