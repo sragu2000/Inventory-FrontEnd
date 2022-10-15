@@ -19,6 +19,37 @@ function ModifyTransactions() {
             .then(res => { setAvailableProduct(res.data.Products); });
 
     }, []);
+    var editOneTransaction = (productId, eventType, transactionId) => {
+        alert("Editing transaction feature is disabled !");
+        // var newQuantity = prompt("Enter new Quantity: ");
+        // var toServer = new FormData();
+        // toServer.append("productId",productId );
+        // toServer.append('eventType',eventType );
+        // toServer.append('transactionId',transactionId);
+        // toServer.append('newQuantity',newQuantity);
+        // fetch("URL", {
+        //     method: 'POST',
+        //     body: toServer,
+        //     mode: 'no-cors',
+        //     cache: 'no-cache'
+        // })
+        //     .then(response => {
+        //         if (response.status == 200) {
+        //             return response.json();
+        //         }
+        //         else {
+        //             alert('Backend Error..!');
+        //             console.log(response.text());
+        //         }
+        //     })
+        //     .then(data => {
+        //         alert(data.message); window.location.reload();
+        //     })
+        //     .catch(() => {
+        //         console.log("Network connection error");
+        //         alert("Reloading"); window.location.reload();
+        //     });
+    }
     return (
         <React.Fragment>
             <SimpleNav></SimpleNav>
@@ -57,7 +88,7 @@ function ModifyTransactions() {
                             <th>Quantity</th>
                             <th>Price</th>
                             <th>Amount</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -76,7 +107,7 @@ function ModifyTransactions() {
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <button className="btn btn-warning form-control">Edit</button>
+                                                    <button onClick={() => { editOneTransaction(id, e.event, e.id) }} className="btn btn-warning form-control">Edit</button>
                                                 </td>
                                                 <td>
                                                     <button className="btn btn-danger form-control">Delete</button>
@@ -95,7 +126,7 @@ function ModifyTransactions() {
                                                 <td>{Number(e.price).toFixed(2)}</td>
                                                 <td>{Number(e.quantity * e.price).toFixed(2)}</td>
                                                 <td>
-                                                    <button className="btn btn-warning form-control">Edit</button>
+                                                    <button onClick={() => { editOneTransaction(id, e.event, e.id) }} className="btn btn-warning form-control">Edit</button>
                                                 </td>
                                                 <td>
                                                     <button className="btn btn-danger form-control">Delete</button>
