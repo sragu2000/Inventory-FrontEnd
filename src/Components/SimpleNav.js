@@ -26,10 +26,10 @@ function SimpleNav() {
                                     Show
                                 </a>
                                 <ul className="dropdown-menu fw-bold" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="#">Suppliers</a></li>
-                                    <li><a className="dropdown-item" href="#">Types</a></li>
+                                    <li><a className="dropdown-item" href="/supplierList">Suppliers</a></li>
+                                    <li><a className="dropdown-item" href="/typesList">Types</a></li>
                                     {/* <li><hr className="dropdown-divider"></hr></li> */}
-                                    <li><a className="dropdown-item" href="#">Products</a></li>
+                                    <li><a className="dropdown-item" href="/showstocks">Products</a></li>
                                 </ul>
                             </li>
                             {/* <li className="nav-item">

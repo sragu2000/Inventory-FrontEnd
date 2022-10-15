@@ -8,6 +8,8 @@ import ShowStocks from "../Pages/ShowStocks";
 import Suppliers from "../Pages/Suppliers";
 import Transactions from "../Pages/Transactions";
 import ModifyTransactions from "../Pages/ModifyTransactions";
+import AllSuppliers from "../Pages/AllSuppliers";
+import AllTypes from "../Pages/AllTypes";
 const Ourroutes = () => {
   return (
     <React.Fragment>
@@ -21,6 +23,8 @@ const Ourroutes = () => {
           <Route exact path="/showSuppliers/:id" element={<Suppliers />} />
           <Route exact path="/showTransactions/:id" element={<Transactions />} />
           <Route exact path="/modifyTransactions/:id" element={<ModifyTransactions />} />
+          <Route exact path="/supplierList" element={<AllSuppliers />} />
+          <Route exact path="/typesList" element={<AllTypes />} />
         </Routes>
       </BrowserRouter>
 
