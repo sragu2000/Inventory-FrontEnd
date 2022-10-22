@@ -13,7 +13,7 @@ function Home() {
     const [productid, setProductId] = useState("");
     const [quantity, setQuantity] = useState("");
     const [purchaseprice, setPurchasePrice] = useState("");
-    const [date, setDate] = useState("");
+    // const [date, setDate] = useState("");
 
 
     const [productTypesApi, setProductTypesApi] = useState([]);
@@ -58,7 +58,7 @@ function Home() {
             cache: 'no-cache'
         })
             .then(response => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     return response.json();
                 }
                 else {
@@ -95,7 +95,7 @@ function Home() {
             cache: 'no-cache'
         })
             .then(response => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     return response.json();
                 }
                 else {
@@ -290,7 +290,7 @@ function Home() {
                                                         </div>
                                                     </div>
                                                     <div className="col-md-6">
-                                                        {(availableQuantity == 0) ?
+                                                        {(availableQuantity === 0) ?
                                                             <div className="alert alert-sm alert-danger">
                                                                 {availableQuantity}
                                                             </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Add from "../Pages/Add";
 import Home from "../Pages/Home";
-import Login from "../Pages/Login";
+// import Login from "../Pages/Login"; -- login: not implemented
 import Signup from "../Pages/Signup";
 import ShowStocks from "../Pages/ShowStocks";
 import Suppliers from "../Pages/Suppliers";
@@ -16,7 +16,7 @@ const Ourroutes = () => {
       <BrowserRouter>
         <Routes>
           <Route exact path="/home" element={<Home />} />
-          <Route exact path="/" element={<Login />} />
+          <Route exact path="/" element={<Home />} />
           <Route exact path="/add" element={<Add />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/showstocks" element={<ShowStocks />} />

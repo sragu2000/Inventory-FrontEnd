@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import SimpleNav from "../Components/SimpleNav";
 import Axios from 'axios';
 function Transactions() {
     const { id } = useParams();
     const [transactions, setTransactions] = useState([]);
-    const [product, setProduct] = useState("");
+    // const [product, setProduct] = useState("");
     const [availableProducts, setAvailableProduct] = useState([]);
     useEffect(() => {
         Axios.get(`http://127.0.0.1:8000/api/getTransactions?prdid=${id}`)
             .then(res => {
                 setTransactions(res.data.transactions);
-                setProduct(res.data.product);
+                // setProduct(res.data.product);
             });
 
 
@@ -62,7 +62,7 @@ function Transactions() {
                         {
                             transactions.map((e) => {
                                 return (
-                                    (e.event == 1)
+                                    (e.event === 1)
                                         ?
                                         <React.Fragment>
                                             <tr className={"align-middle table-success"}>

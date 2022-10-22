@@ -19,11 +19,11 @@ function Add() {
     const [supplierEmail, setSupplierEmail] = useState("");
     const [supplierPhone, setSupplierPhone] = useState("");
 
-    const [supplierApi, setSupplierApi] = useState([]);
-    useEffect(() => {
-        Axios.get(`http://127.0.0.1:8000/api/getSuppliers`)
-            .then(res => { setSupplierApi(res.data.suppliers); });
-    }, []);
+    // const [supplierApi, setSupplierApi] = useState([]);
+    // useEffect(() => {
+    //     Axios.get(`http://127.0.0.1:8000/api/getSuppliers`)
+    //         .then(res => { setSupplierApi(res.data.suppliers); });
+    // }, []);
     
     useEffect(() => {
         Axios.get(`http://127.0.0.1:8000/api/getProductTypes`)
@@ -44,7 +44,7 @@ function Add() {
             cache: 'no-cache'
         })
             .then(response => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     return response.json();
                 }
                 else {
@@ -82,7 +82,7 @@ function Add() {
             cache: 'no-cache'
         })
             .then(response => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     return response.json();
                 }
                 else {
@@ -120,7 +120,7 @@ function Add() {
             cache: 'no-cache'
         })
             .then(response => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     return response.json();
                 }
                 else {

@@ -20,7 +20,7 @@ function ShowStocks() {
                             <th>Available Stock</th>
                             <th>At Price</th>
                             <th>Suppliers</th>
-                            <th colSpan={2}>Transaction</th>
+                            <th colSpan={1}>Transaction</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,12 +46,12 @@ function ShowStocks() {
                                                 </Link>
                                                 {/* <a href={"http://127.0.0.1:8000/api/getSupplierForProduct?prdid="+e.productId} className="btn btn-light form-control">Show Suppliers</a> */}
                                             </td>
-                                            <td>
+                                            {/* <td>
                                                 <Link to={"/modifyTransactions/"+e.productId}>
                                                     <button className="btn btn-light form-control">Modify</button>
                                                 </Link>
-                                                {/* <a href={"http://127.0.0.1:8000/api/getSupplierForProduct?prdid="+e.productId} className="btn btn-light form-control">Show Suppliers</a> */}
-                                            </td>
+                                                <a href={"http://127.0.0.1:8000/api/getSupplierForProduct?prdid="+e.productId} className="btn btn-light form-control">Show Suppliers</a>
+                                            </td> */}
 
                                         </tr>
                                     </React.Fragment>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 function SimpleNav() {
     return (
@@ -22,7 +22,7 @@ function SimpleNav() {
                                 <a className="nav-link" href="/showstocks">Stocks</a>
                             </li>
                             <li className="nav-item dropdown fw-bold">
-                                <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a href="/supplierList" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Show
                                 </a>
                                 <ul className="dropdown-menu fw-bold" aria-labelledby="navbarDropdown">

@@ -18,7 +18,7 @@ function Signup() {
             cache: 'no-cache'
         })
             .then(response => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     return response.json();
                 }
                 else {
@@ -42,7 +42,7 @@ function Signup() {
                     <div className="col-md-4"></div>
                     <div className="col-md-4">
                         <center>
-                            <img src={stock} height="100" className="mt-2"></img>
+                            <img alt="signup" src={stock} height="100" className="mt-2"></img>
                         </center>
                         <form onSubmit={loginSubmit}>
                             <input
